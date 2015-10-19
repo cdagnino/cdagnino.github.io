@@ -1,11 +1,12 @@
 # Site settings
 title: Incentive Compatible
-subtitle: 
+subtitle: telling the truth is first best after all
+# getting things to truthfully revelate
 email: #your-email@domain.com
-description: > # this means to ignore newlines until "baseurl:"
+description: > # this means: ignore newlines until "baseurl:"
   A journal about my adventures on the internet and the amazing things I found there --
   Random comments on economics, data analysis and graphs with nice colors.
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: "/blog/" # the subpath of your site, e.g. /blog/
 url: "http://cdagnino.github.io" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
 github_username: cdagnino
