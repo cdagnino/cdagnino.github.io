@@ -1,0 +1,12 @@
+title: Incentive Compatible
+subtitle: getting things to truthfully revelate
+#telling the truth is first best after all
+
+email: #your-email@domain.com
+description: > # this means: ignore newlines until "baseurl:"
+  A journal about my adventures on the internet and the amazing things I found there --
+  Random comments on economics, data analysis and graphs with nice colors.
+baseurl: "/blog/" # the subpath of your site, e.g. /blog/
+url: "http://cdagnino.github.io" # the base hostname & protocol for your site
+#twitter_username: jekyllrb
+github_username: cdagnino

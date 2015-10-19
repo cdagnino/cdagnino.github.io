@@ -1,18 +1,57 @@
-# Site settings
-title: Incentive Compatible
-subtitle: telling the truth is first best after all
-# getting things to truthfully revelate
-email: #your-email@domain.com
-description: > # this means: ignore newlines until "baseurl:"
-  A journal about my adventures on the internet and the amazing things I found there --
-  Random comments on economics, data analysis and graphs with nice colors.
-baseurl: "/blog/" # the subpath of your site, e.g. /blog/
-url: "http://cdagnino.github.io" # the base hostname & protocol for your site
-#twitter_username: jekyllrb
-github_username: cdagnino
-
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+highlighter: pygments
+gems:
+  - jemoji
+  
+# Site settings
+title: "Incentive Compatible"
+subtitle: getting things to truthfully revelate
+#telling the truth is first best after all
+description: > # this means to ignore newlines until "email:"
+ A journal about my adventures on the internet and the amazing things I found there --
+  Random comments on economics, data analysis and graphs with nice colors.
 
-# Description appears in document head meta (for
-# Google search results) and feed.xml site description.
+email: ""
+#blog logo
+logo: "/assets/images/df_logo.jpg"
+# blog cover
+cover: "/assets/images/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg"
+
+#name: 'Dirk Fabisch'
+#author: 'Dirk Fabisch'
+#author_image: "/assets/images/author.jpg"
+
+paginate:	5
+
+#url: "http://myblog.***.***" # the base hostname & protocol for your site
+baseurl: ""
+#used to display twitter cards
+#twitter_handle: '@dirkfabisch'
+
+#fill in disqus shortname to use disqus
+#disqus: disqus-shortname
+
+# social icons and sharing options
+# social:
+#   - icon:	twitter
+#     url:	https://twitter.com/dirkfabisch
+#     desc: Follow me on twitter
+#     share_url: http://twitter.com/share
+#     share_title: ?text=
+#     share_link: "&amp;url="
+
+
+#   - icon:	github
+#     url:	https://github.com/dirkfabisch
+#     desc:	Fork me on github
+#     share_url:
+#     share_title:
+#     share_link:
+
+#  - icon:	google-plus
+#    url:	https://google.com/???
+#    desc:	Add me on google+
+#    share_url:
+#    share_title:
+#    share_link:
