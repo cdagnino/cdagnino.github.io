@@ -2,7 +2,8 @@
 layout: post
 title:  "Fixing references for dynamic libraries in R and Python"
 date:   2015-10-16 18:14:50
-categories: computing bash
+categories: computing
+image: /assets/article_images/rstudio_crazy.png
 ---
 
 
@@ -18,11 +19,11 @@ Error in dyn.load(file, DLLpath = DLLpath, ...) :
   Reason: image not found
 {% endhighlight %}
 
-If I really needed that library I would either cry or just try to uninstall and install everything again. I'm gonna show you a quick fix that has proved useful. I use a Mac, but I'm guessing very similar (if not the same) steps apply for Linux.
+If I really needed that library I would either cry and/or try to uninstall and install everything again, hoping things would get solved. I eventually learned the proper fix, so I though I'd share it with you. I use a Mac, but I'm guessing very similar (if not the same) steps apply for Linux.
 
 The usual problem is that you have the dynamic library (`dylib`) but the compiled `.so` file is looking at it in the wrong place.
 
-For this example, let's look at `minqa.so`, that is trying to find `libgfortran.3.dylib` in `gcc/4.9/`.
+For this example, let's look at `minqa.so`, which is trying to find `libgfortran.3.dylib` in `gcc/4.9/`.
 
 To check the references of `minqa.so`, we run on the terminal:
 
@@ -55,6 +56,6 @@ install_name_tool -change old_location new_location file_you_wanna_change.so
 
 If you don't know where the `dylib` library is, you can search for it with Spotlight or with `locate` on the command line.
 
-Also, sometimes the `dylib` won't even have a location and the `otool` step will just give you `libgfortran.3.dylib`. The same steps above apply, but the `old_location` will just be the name of the dynamic library.
+Also, sometimes the `dylib` won't even have a location and the `otool` step will output only `libgfortran.3.dylib`. The same steps above apply, but the `old_location` will just be the name of the dynamic library.
 
 You can read more about this issue [in this stackoverflow question](http://stackoverflow.com/questions/6383310/python-mysqldb-library-not-loaded-libmysqlclient-18-dylib)
