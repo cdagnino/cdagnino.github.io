@@ -20,31 +20,31 @@ is possible, removing a market failure need not improve the allocation of resour
 
 You can check the paper for more examples and nuances; here I wanna condense the simple model they develop in their footnotes.
 
-Let $x_t$ denote a policy at time $t$. 
+Let $$x_t$$ denote a policy at time $$t$$. 
 
-$W_t(x_t)$ is our social welfare function. Let's say we have period 1 and period 2. In the world of economics without politics, the policies $x_t$ are chosen independently every period, so that
+$$W_t(x_t)$$ is our social welfare function. Let's say we have period 1 and period 2. In the world of economics without politics, the policies $$x_t$$ are chosen independently every period, so that
 
-$$ \max \; W_1(x_1) + W_2(x_2) $$
+$$ \large{\max \; W_1(x_1) + W_2(x_2)} $$
 
-gives F.O.C. $W_1'(x_1^{SW}) = 0$ where $x_1^{SW}$ is the policy that maximizes social welfare.
+gives F.O.C. $$W_1'(x_1^{SW}) = 0$$ where $$x_1^{SW}$$ is the policy that maximizes social welfare.
 
-Now let's introduce politics. The second period policy will be determined by the distribution of political power in that region. Let's call that $p_2$, so that the policy $x_2 = \xi(p_2)$ is a function of that distribution. In turn, $p_2 = \pi(x_1)$, the distribution of political power, is a result of the policy chosen on period one. In other words, we are allowing the policies on period 1 to alter the balance of power in period 2.
+Now let's introduce politics. The second period policy will be determined by the distribution of political power in that region. Let's call that $$p_2$$, so that the policy $$x_2 = \xi(p_2)$$ is a function of that distribution. In turn, $$p_2 = \pi(x_1)$$, the distribution of political power, is a result of the policy chosen on period one. In other words, we are allowing the policies on period 1 to alter the balance of power in period 2.
 
-Once we consider politics, the optimal $x_1$ can't be chosen by setting $W_1'(x_1^*) = 0$, because we need to take into account the shifting of political power. The right FOC for period's one policy is:
+Once we consider politics, the optimal $$x_1$$ can't be chosen by setting $$W_1'(x_1^*) = 0$$, because we need to take into account the shifting of political power. The right FOC for period's one policy is:
 
-$$ W_1'(x_1) + W_2'\left(\pi(x_1)\right) {d\xi(\pi(x_1))\over p_2} {d \pi(x_1) \over x_1} = 0 $$
+$$ {\Large W_1'(x_1) + W_2'\left(\pi(x_1)\right) {d\xi(\pi(x_1))\over p_2} {d \pi(x_1) \over x_1} = 0 }$$
 
 This looks nice, but how do we use it to think about the unionization example? Acemoglu and Robinson say:
 
 >(...)policies  that  economically  strengthen  already  dominant  groups,  or  that  weaken  those  groups  that  are  acting  as  a  counterbalance  to  the  dominant  groups,  are  especially  likely  to  tilt  the  balance  of  political power further and have unintended, counterproductive implications.
 
-$W_1'(x_1)$ is the direct, economic effect of the policy. The second part $W_2'\left(\pi(x_1)\right) {d\xi(\pi(x_1))\over p_2} {d \pi(x_1) \over x_1}$ is the unintended effect that happens due to the shifting balance of political power.
+$$W_1'(x_1)$$ is the direct, economic effect of the policy. The second part $$W_2'\left(\pi(x_1)\right) {d\xi(\pi(x_1))\over p_2} {d \pi(x_1) \over x_1}$$ is the unintended effect that happens due to the shifting balance of political power.
 
-To be concrete, let's order the policies so that a higher $x$ means that the policy tends to favor the most politically powerful groups(i.e. $x^1_t > x^0_t$ means that the policy $x^1$ favors the powerful groups more than $x^0$). 
+To be concrete, let's order the policies so that a higher $$x$$ means that the policy tends to favor the most politically powerful groups(i.e. $$x^1_t > x^0_t$$ means that the policy $$x^1$$ favors the powerful groups more than $$x^0$$). 
 
-Call $x^0_1, x^0_2$ the status quo policies of the first and second period. Now suppose that the status quo of the second period favors the most powerful groups, so that $x^2 > x^{SW}_2$. Any policy in the first period that favors the most powerful groups (i.e. $x_1 > x_1^0$) will then shift the political equilibrium further in favour of the powerful group, biasing the second period policy even further away from the social optimum.
+Call $$x^0_1, x^0_2$$ the status quo policies of the first and second period. Now suppose that the status quo of the second period favors the most powerful groups, so that $$x^2 > x^{SW}_2$$. Any policy in the first period that favors the most powerful groups (i.e. $$x_1 > x_1^0$$) will then shift the political equilibrium further in favour of the powerful group, biasing the second period policy even further away from the social optimum.
 
-Thus, policies that are economically optimal ($W_1'(x_1)= 0$ ), may still be disastrous due to the tilting of political power and subsequent policy choices.
+Thus, policies that are economically optimal ($$W_1'(x_1)= 0$$ ), may still be disastrous due to the tilting of political power and subsequent policy choices.
 
 My takeway is that any economic policy, however optimal in the strict economic sense, needs to be revised and checked if it tilts the political power to groups that are already powerful. 
 
