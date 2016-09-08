@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Economics versus politics - Pitfall of Policy Advice
+title: Economics vs politics
 date:   2016-09-08 18:14:50
 categories: economics, politics, policy
 image: /assets/article_images/acemoglu_robinson.png
 ---
 
->the policy advice I gave made perfect economic sense, it just didn't work out because of the political situation, and I'm not responsible for that
+>The policy advice I gave made perfect economic sense. It just didn't work out because of the political situation, and I'm not responsible for that
 
 Let's call this the "politics isn't my business" excuse. [*Economics versus Politics: Pitfalls of Policy Advice*](http://economics.mit.edu/files/10403) is Acemoglu's and Robinson's version of a slap on the face for economists that use this excuse.
 
