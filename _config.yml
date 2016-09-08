@@ -3,6 +3,7 @@ markdown: kramdown
 highlighter: rouge
 gems:
   - jemoji
+gems: [jekyll-paginate]
 
 # Site settings
 title: "Incentive Compatible"
