@@ -4,6 +4,7 @@ title:  "Fixing references for dynamic libraries in R and Python"
 date:   2015-10-16 18:14:50
 categories: computing
 image: /assets/article_images/rstudio_crazy.png
+comments: true
 ---
 
 
