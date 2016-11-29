@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Economics vs politics
+title: Politics ain't my business
 date:   2016-09-08 18:14:50
 categories: economics, politics, policy
 image: /assets/article_images/acemoglu_robinson.png
