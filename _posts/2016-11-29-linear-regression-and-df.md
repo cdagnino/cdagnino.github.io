@@ -2,7 +2,7 @@
 layout: post
 title: Linear regression and degrees of freedom
 date:   2016-11-29 18:02:00
-categories: economics, statistics, machine learning
+categories: economics statistics machine learning
 image: 
 ---
 
