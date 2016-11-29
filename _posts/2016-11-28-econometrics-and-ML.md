@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Econometrics and Machine Learning: objectives and comparative advantages
+title: Econometrics and Machine Learning - objectives and comparative advantages
 date:   2016-11-28 10:11:00
 categories: economics, machine learning
 image: 
