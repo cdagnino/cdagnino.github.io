@@ -7,7 +7,7 @@ image:
 ---
 
 
-In this post I go into details of how statistical learning freames the relationship between out-of-sample and within-sample fit. I also connect it with the familiar idea of degrees of freedom in linear regression, which every student of econometrics encounters.
+In this post I go into details of how statistical learning frames the relationship between out-of-sample and within-sample fit. I also connect it with the familiar idea of degrees of freedom in linear regression, which every student of econometrics encounters.
 
 This is the mathy cousin of the post [Econometrics and Machine Learning: objectives and comparative advantages]({% post_url 2016-11-28-econometrics-and-ML %})
 

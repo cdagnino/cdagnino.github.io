@@ -18,7 +18,7 @@ The boring answer is because disciplines take time to cross pollinate, and also,
 
 The more interesting answer is that this is partly driven by how different the objectives of economics and machine learning (or statistical learning) can be.
 
-<i>A warning to the careful reader: while I use the term "economics", the precise comparison should be between the practice of econometrics[^metrix] and the practice machine learning, since both are ways of analyzing and getting conclusions from data. </i>
+<i>A warning to the careful reader: while I use the term "economics", the precise comparison should be between the practice of econometrics[^metrix] and the practice of machine learning, since both are ways of analyzing and getting conclusions from data. </i>
 
 [^metrix]: Or, more broadly, the use of empirical analysis in the social sciences
 
