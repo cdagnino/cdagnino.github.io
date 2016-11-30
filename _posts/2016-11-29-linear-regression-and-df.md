@@ -31,7 +31,7 @@ Let's see the mathematical details. For the rest of the post, the notation will 
 
 Let $$L$$ be any loss function (quadratic would do), that tells us how upset we become when our target $$Y$$ is far from our prediction $$\hat{f}(x)$$.
 
-To fit the model, we are given a training set $$T = \{(x_1, y_1), (x_2, y_2),...,(x_n, y_n)   \} $$ and we obtain $$\hat{f}(x)$
+To fit the model, we are given a training set $$T = \{(x_1, y_1), (x_2, y_2),...,(x_n, y_n)   \} $$ and we obtain $$\hat{f}(x)$$
 
 The true error of a model is:
 
