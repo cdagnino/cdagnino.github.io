@@ -4,8 +4,7 @@ title: About
 permalink: /about/
 ---
 
-A medium inspired Jekyll blog theme. The basic idea came from the Ghost theme 
-[Readium 2.0](http://www.svenread.com/readium-ghost-theme/). I use mediator on my own blog [The Base](blog.base68.com).
+A medium inspired Jekyll blog theme. 
 
 You can **download** the theme here:
 [https://github.com/dirkfabisch/mediator](https://github.com/dirkfabisch/mediator) 
