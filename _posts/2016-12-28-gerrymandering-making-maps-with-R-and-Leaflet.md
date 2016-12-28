@@ -11,7 +11,10 @@ comments: true
 
 I'll use `R` and `Leaflet` to present a particularly nasty example of gerrymandering: [our beloved District Four in Illinois](https://en.wikipedia.org/wiki/Illinois's_4th_congressional_district).
 
-According to Wikipedia, "it was created to pack two majority Hispanic parts of Chicago into one district", so let's use the Census data to check how the district follows the ethnic borders.
+According to Wikipedia, "it was created to pack two majority Hispanic parts of Chicago into one district", so let's use the Census data to check how if the district is really following the ethnic borders.
+
+If you're unsure of what gerrymandering is or not convinced that it's a big issue for democracy, then please read ["the best explanation of gerrymandering you will ever see"](https://www.washingtonpost.com/news/wonk/wp/2015/03/01/this-is-the-best-explanation-of-gerrymandering-you-will-ever-see/?utm_term=.3cac80d4d132)
+
 
 
 To produce a map, we need to prepare a geo dataset following these steps
@@ -144,9 +147,11 @@ leaflet() %>%
 ```
 
 
-![Static Image](../assets/article_images/gerrymandering.png "Static Image of map")
+![Static Version of the map](/assets/article_images/gerrymandering.png "Static Version of the map")
 
-[Click here for the interactive map](../assets/article_images/gerrymandering_map.html)
+[Click here for the interactive map](/assets/article_images/gerrymandering_map.html)
+
+As you can see, the odd shape manages to merge two very large groups of hispanics and give them just one representative.
 
 
 ### Export everything to GeoJson
