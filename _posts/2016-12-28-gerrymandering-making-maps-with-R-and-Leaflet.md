@@ -8,7 +8,6 @@ comments: true
 ---
 
 
-# Gerrymandering: making maps with R and Leaflet
 
 I'll use `R` and `Leaflet` to present a particularly nasty example of gerrymandering: [our beloved District Four in Illinois](https://en.wikipedia.org/wiki/Illinois's_4th_congressional_district).
 
@@ -42,11 +41,11 @@ By default, these polygons will be from 2015.
 
 ### Get the Census Data
 
-I'll use the percentage of hispanics in a Census tract, so we need, by tract, a measure of the total population and of the hispanic population.
+I'll use the percentage of hispanics in a Census tract. We need, by tract, a measure of the total population and one for the hispanic population.
 
- `R` has a very convenient package called `acs` to download specific variables from different geographies. In this case I will download all tracts from out `county_list`
+ `R` has a very convenient package called `acs` to download specific variables from different geographies. In this case I will download all tracts from our `county_list`
  
-You will need to get your API key from the Census, but it takes 40 seconds to do it!
+(You will need to get your API key from the Census, but it takes about 40 seconds to do it!)
 
 ```r
 library(acs)
@@ -77,7 +76,7 @@ hispanic_df <- data.frame(col1, col2)
 colnames(hispanic_df) <- c("NAMELSAD", "perc_hispanic")
 ```
 
-`hispanic_df` is a `data.frame` with a percentage hispanic column and a `NAMELSAD` column that contains the Census Tract number. We'll use this one as a key to make the merge with the polygons contains in `ill_tracts`
+`hispanic_df` is a `data.frame` with a percentage hispanic column and a `NAMELSAD` column that contains the Census Tract number. We'll use this key to merge with the polygons contained in `ill_tracts`.
 
  
 ```r
@@ -85,7 +84,7 @@ hispanic_merged = geo_join(ill_tracts, hispanic_df,
                            "NAMELSAD", "NAMELSAD")
 ```
 
-`hispanic_merge` is a `SpatialPolygonsDataFrame` that is pretty much a `data.frame` augmented with a geometry of polygons. I haven't used this package much, but the idea seems very similar to `geopandas`, which has extended dataframes from `pandas` to include geometry. 
+`hispanic_merge` is a `SpatialPolygonsDataFrame` that is pretty much a `data.frame` augmented with a geometry of polygons. I haven't used this package much, but the idea seems very similar to `geopandas`, which has taken extended `pandas` dataframes and extended (subclassing) them to include geometry. 
 
 ### Get the polygons for District Four
 
@@ -105,9 +104,9 @@ distr_four = cds[(cds@data$STATEFP == ill_code)
 
 ## Leaflet Time
 
-If you haven't heard of it, `Leaflet` is a javascript library that makes it easy to produce stunning interactive maps.
+If you haven't heard of it, [`Leaflet`](http://leafletjs.com/) is a javascript library that makes it easy to produce stunning interactive maps.
 
-`R` has a library conveniently called `leaflet` to interact with the javascript library without leaving `RStudio`. This doesn't expose all of `Leaflet`, but from the little I've seen it provides a lot of the functionality.
+`R` has a library by the same name to interact with the javascript library without leaving `RStudio`. This doesn't expose all of `Leaflet`, but from the little I've seen it provides a lot of the basic functionality. Of course, if you want more flexibility you'll have to use the javascript library directly.
 
 Let's make a choropleth plot with the `leaflet` R package to see if we're on the right track
 
