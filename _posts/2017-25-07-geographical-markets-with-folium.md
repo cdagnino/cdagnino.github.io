@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Geographical Markets with folium
-date:   2017-25-07 17:35:10
+date:   2017-07-25 17:35:10
 categories: visualization, geodata
 image: /assets/article_images/telepizza_map.png
 ---
