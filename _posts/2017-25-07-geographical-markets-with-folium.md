@@ -18,7 +18,7 @@ I'll be using Folium, which is a nice wrapper for Leaflet, a javascript library 
 
 In this example, I'll consider two competing chains of delivery pizza in Santiago: Telepizza and Pizza Hut.
 
-I got the addresses from a quick check on [800.cl](http://www.800.cl/) and then did copy/paste on a text file. I doubt this list is very thorough, but as this is just an example it won't matter. If we were seriously analyzing the pizza delivery market in Santiago, I would have to resort to scraping all the competitors.
+I got the addresses from a quick check on [800.cl](http://www.800.cl/) and then copy/pasted on a text file (get them [here](/assets/article_data/dires_telepizza.txt) and [here](/assets/article_data/dires_pizza_hut.txt)). I doubt this list is very thorough, but as this is just an example it won't matter. If we were seriously analyzing the pizza delivery market in Santiago, I would have to resort to scraping all the competitors.
 
 So our starting point is two text files with the addresses for both of this chains. We'll need three steps
 
@@ -32,7 +32,7 @@ So our starting point is two text files with the addresses for both of this chai
 import pandas as pd
 import requests
 def load_and_clean(file_n):
-    df = pd.read_csv("datos/{}.txt".format(file_n), header=None)
+    df = pd.read_csv("data/{}.txt".format(file_n), header=None)
     df.columns = ['address']
     df['address'].str.replace('.', ',') + ', Santiago, Chile'
     return df
@@ -245,4 +245,4 @@ Note I've used `1.5` km as the radius. I experimented with a few lengths until I
 
 ![Static Version of the map](/assets/article_images/telepizza_map.png "Static Version of the map")
 
-[Click here for the interactive map](/assets/article_images/telepizza_map_union.html)
+[Click here for the interactive map](/assets/article_images/telepizza_map_union.html). You can zoom in and out. Be sure to click on the markers too.
