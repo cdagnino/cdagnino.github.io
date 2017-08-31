@@ -7,7 +7,6 @@ image: /assets/article_images/rstudio_crazy.png
 comments: true
 ---
 
-
 ## Simulación y probabilidades para Clasificatorias Sudamericanas 2018
 
 
@@ -354,12 +353,9 @@ sns.barplot('rank_chile', 'frec', data=df)
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x10aeba3c8>
 
 
-
-
-![png](Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_files/Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_9_1.png)
+![png](/assets/article_images/espiritu_a/espiritu-acosta_9_1.png)
 
 
 Ok! Hay buenas posibilidades de salir segundo, tercero y cuarto, pero también hay una cola de sexto y séptimo lugar.
@@ -446,12 +442,11 @@ sns.distplot(df.median_45th[pd.notnull(df.median_45th)],
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x11677ad30>
 
 
 
 
-![png](Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_files/Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_13_1.png)
+![png](/assets/article_images/espiritu_a/espiritu-acosta_13_1.png)
 
 
 
@@ -464,12 +459,10 @@ sns.distplot(df.Chile,
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x116795470>
 
 
 
-
-![png](Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_files/Poseido%20por%20el%20espiritu%20de%20N.%20Acosta_14_1.png)
+![png](/assets/article_images/espiritu_a/espiritu-acosta_14_1.png)
 
 
 
