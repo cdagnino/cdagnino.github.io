@@ -1,36 +1,35 @@
 ---
 layout: post
 title: Geographical Markets with folium
-date:   2017-07-25 17:35:10
+date:   2017-07-26 18:10:03
 categories: visualization, geodata
 image: /assets/article_images/telepizza_map.png
 ---
 
-Imagine you're analyzing the market for pizzas in your city. You wonder if Chain A is somehow different. Maybe they tend to locate more on the richer parts of the city. Maybe they compete a lot with Chain B (similar locations), but not so much with Chain C.
+Pongamos que estamos analizando el mercado de las pizzas en una ciudad. Nos podemos preguntar si PizzaHut se comporta diferente a las otras cadenas. Tal vez se concentra más en los barrios de estratos más altos. Tal vez compite mucho con Domino's Pizza, pero no tanto con Telepizza.
 
-Analyzing the behavior of a chain requires you to think about the geographical market of each pizza place: that is, the area in the city that they influence. How do we define these markets? For a pizza place, an sorounding area of 1km seems too little. 10km is probably too much, but anything in between might be reasonable. On the other hand, for a big hospital 10 or even 20km might be reasonable.
+Analizar el comportamiento de una cadena requiere pensar en los mercados geográficos de cada sucursal; esto es, el área de la ciudad donde operan. Cómo los definimos? Para un local de pizza, un área de 1km parece demasiado poco. 10km parece demasiado, pero  muchos valores intermedios parecen razonables. Por otro lado, por un hospital grande, 10km o incluso 20km pueden ser apropiados.
 
-In this post, I want to show how you go from having addresses for a few chains to producing an interactive map that shows the geographical markets that belong to each store.
+En este post, quiero mostrar cómo se puede pasar de una lista de direcciones a un mapa interactivo que muestre los mercados geográficos de una cadena.
 
+Voy a usar `Folium`, que es un *wrapper* en `Python` para `Leaflet`, una librería de Javascript que vuelve fácil hacer mapas interactivos.
 
-I'll be using Folium, which is a nice wrapper for Leaflet, a javascript library for making interactive maps.
+Para estar ejemplo, voy a considerar dos cadenas que reparten pizzas a domicilio: Telepizza y Pizza Hut.
 
+Saqué las direcciones de una búsqueda rápida en [800.cl](http://www.800.cl/) y luego simplemente hice un *copy/paste* en archivos de textos (los puedes obtener [aquí](/assets/article_data/dires_telepizza.txt) y [acà](/assets/article_data/dires_pizza_hut.txt)). Dudo que aquí estén todas las direcciones, pero como es solamente un ejemplo no me importa tanto. Si estuviésemos considerando seriamente el mercado de las pizzas, tendrías que usar `scraping` para obtener las direcciones de todas las cadenas relevantes.
 
-In this example, I'll consider two competing chains of delivery pizza in Santiago: Telepizza and Pizza Hut.
+Nuestro punto de partida son esos dos archivos de texto con las direcciones para Telepizza y Pizzahut. Para llegar a nuestro objetivo, vamos a necesitar tres pasos:
 
-I got the addresses from a quick check on [800.cl](http://www.800.cl/) and then copy/pasted on a text file (get them [here](/assets/article_data/dires_telepizza.txt) and [here](/assets/article_data/dires_pizza_hut.txt)). I doubt this list is very thorough, but as this is just an example it won't matter. If we were seriously analyzing the pizza delivery market in Santiago, I would have to resort to scraping all the competitors.
+1. Cargar y limpiar los datos
+2. Geocodificar las direcciones usando el *API* de Google (necesitamos esas latitudes y longitudes para poder hacer un mapa!)
+3. Crear el mapa interactivo con `Folium`
 
-So our starting point is two text files with the addresses for both of this chains. We'll need three steps
+## 1. Cargar y limpiar los datos
 
-1. Load and clean the data
-2. Geocode it using the google api (we need those Latitudes and Longitudes to map!)
-3. Map with Folium
-
-## 1. Load and clean the data
+Acá no pasa nada muy interesante. Uso `pandas` para leer los archivos de texto y agrego 'Santiago, Chile' para ayudar a la geocodificación.
 
 ```py
 import pandas as pd
-import requests
 def load_and_clean(file_n):
     df = pd.read_csv("data/{}.txt".format(file_n), header=None)
     df.columns = ['address']
@@ -39,13 +38,16 @@ def load_and_clean(file_n):
 pizza_hut, telepizza = map(load_and_clean, ['dires_pizza_hut', 'dires_telepizza'])
 ```
 
-## 2. Geocode
+## 2. Geocodificación
 
-The `get_result` function below is a quick and dirty way of getting a few addresses. If you're geocoding many addresses, I'd suggest you write a script that has better exception handling and saves intermediate results. [Check this gist for ideas](https://gist.github.com/shanealynn/033c8a3cacdba8ce03cbe116225ced31)
+La función `get_result` es una forma rápida para geocodificar unas cuantas direcciones. Si estás geocodificando un buen número, te recomiendo escribir un *script* que maneje todas las excepciones y guarde resultados intermedios. [Revisa este *gist* para sacar ideas](https://gist.github.com/shanealynn/033c8a3cacdba8ce03cbe116225ced31)
 
-I don't think you need a API key to geocode this, but, in any case, you can easily get one if you have a gmail acount (see [here](https://console.developers.google.com/apis/))
+Creo que no es necesario tener un *API key* para hacer esta geocodificación, pero, en todo caso, es fácil de obtener si ya tienes una cuenta de gmail ([ver acá](https://console.developers.google.com/apis/))
+
+Las peticiones a `maps.googleapis.com` se hacen a través de la librería `requests`
 
 ```py
+import requests
 api_key = 'your API key here'
 base = "https://maps.googleapis.com/maps/api/geocode/json?address="
 
@@ -56,7 +58,7 @@ def get_result(addr, base_add=base):
     result = requests.get(geo_url)
     result = result.json()
     
-    # Handle the case with zero results
+    # Tratar el caso en que no hay resultados
     if len(result['results']) == 0:
         output = {
             "formatted_address": None,
@@ -74,7 +76,7 @@ def get_result(addr, base_add=base):
             "accuracy": answer.get('geometry').get('location_type'),
             "google_place_id": answer.get("place_id"),
         }
-    # Append some other stuff
+    # Agregar otras cosas
     output['input_string'] = addr
     output['number_of_results'] = len(result['results'])
     output['status'] = result.get('status')
@@ -89,11 +91,9 @@ results_pizzahut = pizza_hut['address'].map(get_result)
 df_pizzahut = pd.DataFrame.from_records(results_pizzahut)
 ```
 
-## 3. Make maps!
+## 3. Crear los mapas!
 
-
-
-First, we need some extra imports:
+Primero necesitamos algunos *imports* extra. `epsg:32719` es una proyección apropiada para direcciones en Chile.
 
 ```py
 import geopandas as gpd
@@ -106,7 +106,8 @@ EPSG_POST = 'epsg:32719'
 # http://spatialreference.org/ref/epsg/32719/
 ```
 
-This function will turn the `pd.DataFrame` of the previous step into a geopandas `DataFrame` with the appropriate projeciton
+`clean_df` transforma el `pd.DataFrame` del paso anterior a un `GeoDataFrame` de la librería `geopandas`. Este formato vuelve fácil hacer transformaciones geométricas.
+
 
 ```py
 def clean_df(df, epsg_post=EPSG_POST):
