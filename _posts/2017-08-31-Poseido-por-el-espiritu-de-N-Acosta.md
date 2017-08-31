@@ -3,6 +3,7 @@ layout: post
 title:  "Poseído por el espíritu de N. Acosta"
 date:   2017-08-31 17:31:00
 categories: statistics
+image: /assets/article_images/rstudio_crazy.png
 comments: true
 ---
 
