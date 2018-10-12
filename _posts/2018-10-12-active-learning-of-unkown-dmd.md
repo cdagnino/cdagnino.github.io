@@ -14,9 +14,9 @@ You think the demand has a log log form:
 
 $$ \log q = \alpha + \beta \log p + \varepsilon $$
 
-but you're unsure of the values of $\alpha$ and $\beta$
+but you're unsure of the values of $$\alpha$$ and $$\beta$$
 
-¿What should your pricing strategy be in this case? ¿How should you go about learning about demand, but without sacrificing too much profit in the meantime?
+What should your pricing strategy be in this case? How should you go about learning about demand, but without sacrificing too much profit in the meantime?
 
 We can distinguish between two broad types of learning: active and passive.
 
@@ -34,21 +34,21 @@ $$V_{b_t}(I_t) = max_{p_t \in P} \{ \pi(p_t, x_t) + \beta
                  \int V_{b_{t+1}}(I_{t+1}(x_{t+1}, I_t)) b_t(x_{t+1}| p_t, I_t )\; d x_{t+1}\}  $$
 
 
-+ $ \pi(a_t, x_t)$ is the current period profit
-+ $x_{t+1}$ in this case is the log demand ($log q$)
-+ $I_t$ represents the information set of the firm at $t$
-+ $b_t(x_{t+1}| p_t, I_t )$ represents the firm's belief about the value that $x_{t+1}$ (log demand) will take next period
++ $$ \pi(a_t, x_t)$$ is the current period profit
++ $$x_{t+1}$$ in this case is the log demand ($$log q$$)
++ $$I_t$$ represents the information set of the firm at $$t$$
++ $$b_t(x_{t+1}| p_t, I_t )$$ represents the firm's belief about the value that $$x_{t+1}$$ (log demand) will take next period
 
 To fully flesh out this model, I borrow the notation of Aguirregabiria &amp; Jeon (2018): ["Firms' Belief and Learning in Oligopoly Markets"](http://aguirregabiria.net/wpapers/survey_rio.pdf)
 
-The first important specification is what is the form of the belief function $b()$. In their survey paper, Aguirregabiria &amp; Jeon consider four types of learning and belief function
+The first important specification is what is the form of the belief function $$b()$$. In their survey paper, Aguirregabiria &amp; Jeon consider four types of learning and belief function
 
 1. Rational expectations
 2. Bayesian learning
 3. Adaptive learning
 4. Reinforcement learning
 
-In this blog post I will only talk about Bayesian learning, but you're welcome to check the paper for the other approaches Under the bayesian learning, the firm starts with some priors on how $x_{t+1}$ (log demand) evolves and then updates those priors as new information (i.e. prices chosen and observed demand) comes in.
+In this blog post I will only talk about Bayesian learning, but you're welcome to check the paper for the other approaches Under the bayesian learning, the firm starts with some priors on how $$x_{t+1}$$ (log demand) evolves and then updates those priors as new information (i.e. prices chosen and observed demand) comes in.
 
 With [Giovanni Ballarin](https://github.com/giob1994) we are writing the [LearningModel package](https://github.com/cdagnino/LearningModels) that estimates such value functions under different settings. Our idea is to make it easy for a researcher to plug different models and get a value function. For example, it should be easy to change the demand model from
 
