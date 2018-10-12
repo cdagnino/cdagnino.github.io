@@ -37,7 +37,7 @@ $$V_{b_t}(I_t) = max_{p_t \in P} \{ \pi(p_t, x_t) + \beta
 + $$ \pi(a_t, x_t)$$ is the current period profit
 + $$x_{t+1}$$ in this case is the log demand ($$log q$$)
 + $$I_t$$ represents the information set of the firm at $$t$$
-+ $$b_t(x_{t+1}| p_t, I_t )$$ represents the firm's belief about the value that $$x_{t+1}$$ (log demand) will take next period
++ $$b_t(x_{t+1} \| p_t, I_t )$$ represents the firm's belief about the value that $$x_{t+1}$$ (log demand) will take next period
 
 To fully flesh out this model, I borrow the notation of Aguirregabiria &amp; Jeon (2018): ["Firms' Belief and Learning in Oligopoly Markets"](http://aguirregabiria.net/wpapers/survey_rio.pdf)
 
@@ -4293,7 +4293,7 @@ The true lambda that generated the demand data was lambda3. Because of this, a f
 
 The graph shows that some firms learnt this quite fast (firm 0, 5, 6), while others took longer or haven't converged to the right result after 50 periods (for example, firm 2 and 3).
 
-If you select firm number 3, you can see why this might have happened: the demand is random and so big errors (the $\varepsilon$ in our demand equation) might make the demand appear **as if** the correct value is, say lambda2. If the firm is unlucky, it might get stuck in the wrong lambda for quite a while. However, we know that active learning is the correct approach and we're assured that the learning will eventually converge. This is not true if the firm were to use passive learning: in this case, there is a non trivial probability that the firm gets stuck forever in the wrong lambda. 
+If you select firm number 3, you can see why this might have happened: the demand is random and so big errors (the $$\varepsilon$$ in our demand equation) might make the demand appear **as if** the correct value is, say lambda2. If the firm is unlucky, it might get stuck in the wrong lambda for quite a while. However, we know that active learning is the correct approach and we're assured that the learning will eventually converge. This is not true if the firm were to use passive learning: in this case, there is a non trivial probability that the firm gets stuck forever in the wrong lambda. 
 
 
 ### Some notes on how to write this Altair interactive plot
