@@ -57,7 +57,7 @@ The first important specification is the form of the belief function $$b()$$. In
 
 In this blog post I will only talk about Bayesian learning, but you're welcome to check the paper for the other approaches. Under the bayesian learning, the firm starts with some priors on $$x_{t+1}$$ (log demand) and then, as new information arrives (i.e. prices chosen and observed demand), the firm updates those priors.
 
-The prior belief are given by $b_0(x_1 \| a_0, x_0)$ that is exogenous. This prior is a mixture over a collection of L transition probabilities:
+The prior belief are given by $$b_0(x_1 \| a_0, x_0)$$ that is exogenous. This prior is a mixture over a collection of L transition probabilities:
 
 $$P = {m_l (x_{t+1} \| p_t, x_t) }_{l=1}^L$$
 
@@ -65,21 +65,21 @@ so that
 
 $$b_0(x_1 | p_0, x_0) = \sum_{l=1}^L \lambda_l^{(0)} m_l (x_1 \| p_0, x_0)$$
 
-The firm observes the new state $x_t$ and uses this information to update its beliefs. Under bayesian updating the formula is>
+The firm observes the new state $$x_t$$ and uses this information to update its beliefs. Under bayesian updating the formula is:
 
 $$\lambda_l^{(t)} = \frac{ m_l (x_t \| p_{t-1}, x_{t-1}) \lambda_l^{(t-1)} }{ \sum_{l'=1}^L m_{l'} (x_t \| p_{t-1}, x_{t-1}) \lambda_{l'}^{(t-1)}} $$
 
-In words, $m_l (x_t| p_{t-1}, x_{t-1})$ is the probability that the $l$ transition probability function gives to $x_t$ actually happening. If the probability of $x_t$ (the state that actually occured) is high under $l$, then that $l$ transition probability will get a higher weight in the beliefs of next period.
+In words, $$m_l (x_t| p_{t-1}, x_{t-1})$$ is the probability that the $$l$$ transition probability function gives to $$x_t$$ actually happening. If the probability of $$x_t$$ (the state that actually occured) is high under $$l$$, then that $$l$$ transition probability will get a higher weight in the beliefs of next period.
 
 ### Back to our example with demand
 
-For the simulation in this blog post, the firms will entertain three hypothesis, three different way in which demand might behave. Each one of this "models" is represented by a different $l$ transition probability. Each one differs on their $\beta_l$, but are otherwise the same:
+For the simulation in this blog post, the firms will entertain three hypothesis, three different way in which demand might behave. Each one of this "models" is represented by a different $$l$$ transition probability. Each one differs on their $$\beta_l$$, but are otherwise the same:
 
 $$ \log q = \alpha + \beta_l \log p + \varepsilon $$
 
-The beliefs at $$t$$ of each firm is fully characterized by $$(\lambda_1^t, \lambda_2^t, \lambda_3^t$$, which are the weights it gives to each on of these three $$l$$ models.
+The beliefs at $$t$$ of each firm is fully characterized by $$(\lambda_1^t, \lambda_2^t, \lambda_3^t)$$, which are the weights it gives to each on of these three $$l$$ models.
 
-Each firm starts at time 0 with $$(\lambda_1^0, \lambda_2^0, \lambda_3^0$$ and the prices it chooses and demand it observes will make it update its lambdas.
+Each firm starts at time 0 with $$(\lambda_1^0, \lambda_2^0, \lambda_3^0)$$ and the prices it chooses and demand it observes will make it update its lambdas.
 
 
 ### The code
