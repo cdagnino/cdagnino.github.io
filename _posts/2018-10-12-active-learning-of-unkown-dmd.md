@@ -37,18 +37,52 @@ $$V_{b_t}(I_t) = max_{p_t \in P} \{ \pi(p_t, x_t) + \beta
 + $$ \pi(a_t, x_t)$$ is the current period profit
 + $$x_{t+1}$$ in this case is the log demand ($$log q$$)
 + $$I_t$$ represents the information set of the firm at $$t$$
-+ $$b_t(x_{t+1} \| p_t, I_t )$$ represents the firm's belief about the value that $$x_{t+1}$$ (log demand) will take next period
++ $$b_t(x_{t+1} \| p_t, I_t )$$ represents the firm's belief about the value that $$x_{t+1}$$ (log demand) will take next period. It expresses which values of $$x_{t+1}$$ the firm considers more or less likely.
+
+Let's consider the integral carefully:
+
+$$\int V_{b_{t+1}}(I_{t+1}(x_{t+1}, I_t)) b_t(x_{t+1}| p_t, I_t )\; d x_{t+1}$$
+
+It is integrated over the possible values that $$x_{t+1}$$ could take according to the belief function $$b()$$ and what the value function would be worth under that new information set. This is crucial: it gives some value to information and, thus to experimentation. The firm doesn't want to just maximize current period profits, but actually wants to have a better information set in the future. 
+
 
 To fully flesh out this model, I borrow the notation of Aguirregabiria &amp; Jeon (2018): ["Firms' Belief and Learning in Oligopoly Markets"](http://aguirregabiria.net/wpapers/survey_rio.pdf)
 
-The first important specification is what is the form of the belief function $$b()$$. In their survey paper, Aguirregabiria &amp; Jeon consider four types of learning and belief function
+The first important specification is the form of the belief function $$b()$$. In their survey paper, Aguirregabiria &amp; Jeon consider four types of learning and belief functions
 
 1. Rational expectations
 2. Bayesian learning
 3. Adaptive learning
 4. Reinforcement learning
 
-In this blog post I will only talk about Bayesian learning, but you're welcome to check the paper for the other approaches Under the bayesian learning, the firm starts with some priors on how $$x_{t+1}$$ (log demand) evolves and then updates those priors as new information (i.e. prices chosen and observed demand) comes in.
+In this blog post I will only talk about Bayesian learning, but you're welcome to check the paper for the other approaches. Under the bayesian learning, the firm starts with some priors on $$x_{t+1}$$ (log demand) and then, as new information arrives (i.e. prices chosen and observed demand), the firm updates those priors.
+
+The prior belief are given by $b_0(x_1 \| a_0, x_0)$ that is exogenous. This prior is a mixture over a collection of L transition probabilities:
+
+$$P = {m_l (x_{t+1} \| p_t, x_t) }_{l=1}^L$$
+
+so that
+
+$$b_0(x_1 | p_0, x_0) = \sum_{l=1}^L \lambda_l^{(0)} m_l (x_1 \| p_0, x_0)$$
+
+The firm observes the new state $x_t$ and uses this information to update its beliefs. Under bayesian updating the formula is>
+
+$$\lambda_l^{(t)} = \frac{ m_l (x_t \| p_{t-1}, x_{t-1}) \lambda_l^{(t-1)} }{ \sum_{l'=1}^L m_{l'} (x_t \| p_{t-1}, x_{t-1}) \lambda_{l'}^{(t-1)}} $$
+
+In words, $m_l (x_t| p_{t-1}, x_{t-1})$ is the probability that the $l$ transition probability function gives to $x_t$ actually happening. If the probability of $x_t$ (the state that actually occured) is high under $l$, then that $l$ transition probability will get a higher weight in the beliefs of next period.
+
+### Back to our example with demand
+
+For the simulation in this blog post, the firms will entertain three hypothesis, three different way in which demand might behave. Each one of this "models" is represented by a different $l$ transition probability. Each one differs on their $\beta_l$, but are otherwise the same:
+
+$$ \log q = \alpha + \beta_l \log p + \varepsilon $$
+
+The beliefs at $$t$$ of each firm is fully characterized by $$(\lambda_1^t, \lambda_2^t, \lambda_3^t$$, which are the weights it gives to each on of these three $$l$$ models.
+
+Each firm starts at time 0 with $$(\lambda_1^0, \lambda_2^0, \lambda_3^0$$ and the prices it chooses and demand it observes will make it update its lambdas.
+
+
+### The code
 
 With [Giovanni Ballarin](https://github.com/giob1994) we are writing the [LearningModel package](https://github.com/cdagnino/LearningModels) that estimates such value functions under different settings. Our idea is to make it easy for a researcher to plug different models and get a value function. For example, it should be easy to change the demand model from
 
@@ -61,7 +95,7 @@ $$ \log q_{t} = \alpha + \beta \log p_{y} + \gamma q_{t-1} \varepsilon $$
 without having to rewrite the value function iteration code completely.
 
 
-### Example
+## Simulation
 
 We'll import the package and do a value function iteration to get the correct value function and policy functions.
 
@@ -70,7 +104,7 @@ With those in hand, we can simulate how would firms learn under a random demand 
 
 
 
-## Solve for the value and policy function
+### Solve for the value and policy function
 
 
 ```python
@@ -96,19 +130,18 @@ With those in hand, we can simulate how would firms learn under a random demand 
 
 After 60 iterations we get an error of 0.004. We could let it run longer to get a smaller error, but it should be fine for our plotting purposes.
 
-## Use the policy function to simulate
+### Use the policy function to simulate
 
 
 ```python
 %matplotlib inline
 import sys
-sys.path.append("/Users/cd/Documents/github_reps/cdagnino.github.io/notebooks/LearningModels")
+sys.path.append("path_to_package_src/LearningModels")
 
 import matplotlib.pyplot as plt
 import dill
 import numpy as np
 import pandas as pd
-#file_n = "2018-10-1vfi_dict.dill"  
 file_n = "2018-10-11vfi_dict.dill"
 with open('LearningModels/data/' + file_n, 'rb') as file:
     data_d = dill.load(file)
@@ -129,12 +162,23 @@ valueF = data_d['valueF']
 lambdas_ext = src.generate_simplex_3dims(n_per_dim=15) #15 should watch value f iteration
 print(lambdas_ext.shape)
 
-#Interpolate policy (level price). valueF is already a function
+#Interpolate policy
 policyF = src.interpolate_wguess(lambdas_ext, policy)
 
-def one_run(lambda0=np.array([0.4, 0.4, 0.2]),
-                             true_beta=src.betas_transition[2],
-                             dmd_σϵ=src.const.σ_ɛ+0.05, time_periods=40):
+def simulate_one_firm(valueF, policyF, maxt, lambda0=np.array([0.4, 0.4, 0.2]),
+            true_beta=src.betas_transition[2],
+            dmd_σϵ=src.const.σ_ɛ):
+    """
+    Simulates the action of one firm when facing a random demand
+
+    :param valueF: interpolated value function
+    :param policyF: interpolated policy function
+    :param maxt: maximum number of time periods
+    :param lambda0: starting prior
+    :param true_beta: true elasticity of demand
+    :param dmd_σϵ: standard deviation of demand noise
+    :return: pd.Dataframe with level prices, log_dmd, value function and the lambdas
+    """
     current_lambdas = lambda0
     d = {}
     d['level_prices'] = []
@@ -145,46 +189,41 @@ def one_run(lambda0=np.array([0.4, 0.4, 0.2]),
     d['lambda3'] = []
     d['t'] = []
 
-
-    for t in range(time_periods):
+    for t in range(maxt):
         d['t'].append(t)
         d['lambda1'].append(current_lambdas[0])
         d['lambda2'].append(current_lambdas[1])
         d['lambda3'].append(current_lambdas[2])
         d['valueF'].append(valueF(current_lambdas[:2])[0])
 
-        #0. Choose optimal price (last action of t-1)
-        level_price = policyF(current_lambdas[:2]) #Check: Is this correctly defined with the first two elements?
+        # 0. Choose optimal price (last action of t-1)
+        level_price = policyF(current_lambdas[:2])  # Check: Is this correctly defined with the first two elements?
         d['level_prices'].append(level_price[0])
 
-        #1. Demand happens
-        log_dmd = src.draw_true_log_dmd(level_price, true_beta, dmd_σε)
+        # 1. Demand happens
+        log_dmd = src.draw_true_log_dmd(level_price, true_beta, dmd_σϵ)
         d['log_dmd'].append(log_dmd[0])
 
-        #2. lambda updates: log_dmd: Yes, level_price: Yes
+        # 2. lambda updates: log_dmd: Yes, level_price: Yes
         new_lambdas = src.update_lambdas(log_dmd, src.dmd_transition_fs, current_lambdas,
-                       action=level_price, old_state=1.2)
+                                         action=level_price, old_state=1.2)
 
         current_lambdas = new_lambdas
-            
+
     return pd.DataFrame(d)
 
 def many_runs(total_runs, **kwargs):
     dfs = []
     for run in range(total_runs):
-        df = one_run(**kwargs)
+        df = simulate_one_firm(**kwargs)
         df['firm_id'] = run
         dfs.append(df)
         
     return pd.concat(dfs, axis=0)
 
 all_firms = many_runs(7, time_periods=50)
-
-
-
 ```
 
-    (120, 3)
 
 
 ## Plot with your new BFF: Altair
@@ -4289,11 +4328,11 @@ var yourVlSpec = {
 
 
 
-The true lambda that generated the demand data was lambda3. Because of this, a firm that learns correctly is one that puts probability one to lambda3.
+The true probability transition function that generated the demand data was the one associated with  $$\lambda_3$$. Because of this, a firm that learns correctly is one that puts probability one to $$\lambda_3$$.
 
 The graph shows that some firms learnt this quite fast (firm 0, 5, 6), while others took longer or haven't converged to the right result after 50 periods (for example, firm 2 and 3).
 
-If you select firm number 3, you can see why this might have happened: the demand is random and so big errors (the $$\varepsilon$$ in our demand equation) might make the demand appear **as if** the correct value is, say lambda2. If the firm is unlucky, it might get stuck in the wrong lambda for quite a while. However, we know that active learning is the correct approach and we're assured that the learning will eventually converge. This is not true if the firm were to use passive learning: in this case, there is a non trivial probability that the firm gets stuck forever in the wrong lambda. 
+If you select firm number 3, you can see why this might have happened: the demand is random and so big errors (the $$\varepsilon$$ in our demand equation) might make the demand appear **as if** the correct demand is, say, the one associated with $$\lambda_2$$. If the firm is unlucky, it might get stuck in the wrong lambda for quite a while. However, we know that active learning is the correct approach and we're assured that the learning should converge (see, for example, Kiefer & Nyarko (1989)). This is not true if the firm were to use passive learning: in this case, there is a non trivial probability that the firm gets stuck forever in the wrong lambda (Aghion *et alii* (1991)). 
 
 
 ### Some notes on how to write this Altair interactive plot
